@@ -56,6 +56,68 @@ public class TankHealth : MonoBehaviour
         }
     }
 
+    public void Heal(float amount)
+    {
+        // Increase current health by the amount of damage done.
+        m_CurrentHealth += amount;
+
+        //Make sure the current health is within the limits
+        if (m_CurrentHealth > m_StartingHealth)
+        {
+            m_CurrentHealth = m_StartingHealth;
+        }
+
+        // Change the UI elements appropriately.
+        SetHealthUI();
+
+        // If the current health is at or below zero and it has not yet been registered, call OnDeath.
+        if (m_CurrentHealth <= 0f && !m_Dead)
+        {
+            OnDeath();
+        }
+    }
+
+    public void MultiplyHealth(float amount)
+    {
+        // Increase current health by the amount of damage done.
+        m_CurrentHealth *= amount;
+
+        //Make sure the current health is within the limits
+        if (m_CurrentHealth > m_StartingHealth)
+        {
+            m_CurrentHealth = m_StartingHealth;
+        }
+
+        // Change the UI elements appropriately.
+        SetHealthUI();
+
+        // If the current health is at or below zero and it has not yet been registered, call OnDeath.
+        if (m_CurrentHealth <= 0f && !m_Dead)
+        {
+            OnDeath();
+        }
+    }
+
+    public void DivideHealth(float amount)
+    {
+        // Increase current health by the amount of damage done.
+        m_CurrentHealth /= amount;
+
+        //Make sure the current health is within the limits
+        if (m_CurrentHealth > m_StartingHealth)
+        {
+            m_CurrentHealth = m_StartingHealth;
+        }
+
+        // Change the UI elements appropriately.
+        SetHealthUI();
+
+        // If the current health is at or below zero and it has not yet been registered, call OnDeath.
+        if (m_CurrentHealth <= 0f && !m_Dead)
+        {
+            OnDeath();
+        }
+    }
 
     private void SetHealthUI()
     {

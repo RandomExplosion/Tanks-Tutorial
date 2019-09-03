@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
     public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
     public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
-
+    public GameObject m_ControlsText;           // GameObject with the control text attatched (Tells Users What the Controls Are)
 
     private int m_RoundNumber;                  // Which round the game is currently on.
     private WaitForSeconds m_StartWait;         // Used to have a delay whilst the round starts.
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
         if (m_GameWinner != null)
         {
             // If there is a game winner, restart the level.
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else
         {
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
         // Increment the round number and display text showing the players what round it is.
         m_RoundNumber++;
         m_MessageText.text = "ROUND " + m_RoundNumber;
+        m_ControlsText.SetActive(true);
 
         // Wait for the specified length of time until yielding control back to the game loop.
         yield return m_StartWait;
@@ -118,6 +120,7 @@ public class GameManager : MonoBehaviour
 
         // Clear the text from the screen.
         m_MessageText.text = string.Empty;
+        m_ControlsText.SetActive(false);
 
         // While there is not one tank left...
         while (!OneTankLeft())

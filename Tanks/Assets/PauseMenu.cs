@@ -5,20 +5,30 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
 
+    bool paused = false;
     public GameObject m_MenuObject;
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            TogglePause();
+        }
+    }
 
     public void TogglePause()
     {
-        if (Time.timeScale > 0)
+        if (paused == false)
         {
             Time.timeScale = 0; //Freeze game
             m_MenuObject.SetActive(true); //Show the pause menu
+            paused = true;
         }
-        else if (Time.timeScale > 0)
+        else if (paused == true)
         {
-            Time.timeScale = 0; //Unfreeze game
+            Time.timeScale = 1; //Unfreeze game
             m_MenuObject.SetActive(false); //
+            paused = false;
         }
     }
 }

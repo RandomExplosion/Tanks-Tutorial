@@ -73,6 +73,7 @@ public class TankManager
     {
         m_Instance.transform.position = m_SpawnPoint.position;
         m_Instance.transform.rotation = m_SpawnPoint.rotation;
+        m_Instance.transform.localScale = new Vector3(1, 1, 1);
 
         m_Instance.SetActive(false);
         m_Instance.SetActive(true);
