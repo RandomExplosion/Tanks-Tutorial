@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
     public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
     public GameObject m_ControlsText;           // GameObject with the control text attatched (Tells Users What the Controls Are)
+    public Transform m_PickupContainer;         // Transform parent to every pickup in the scene
+    public float m_PickupSpawnDistance;         // Max Distance From the origin to spawn pickups
+    public PickupType[] m_PickupTypes;          // All the types of pickup to spawn at the start of each game
+    public LayerMask m_prohibitedintersections; // Layers which spawned pickups are not allowed to intersect with
 
     private int m_RoundNumber;                  // Which round the game is currently on.
     private WaitForSeconds m_StartWait;         // Used to have a delay whilst the round starts.
@@ -49,6 +53,47 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SpawnPickups()
+    {
+        for (int i = 0; i < m_PickupContainer.childCount; i++) //Destroy all the Pickups Currently in the scene
+        {
+            Destroy(m_PickupContainer.GetChild(i).gameObject);
+        }
+
+        //Spawn the Pickups
+        for (int i = 0; i < m_PickupTypes.Length; i++)
+        {
+            PickupType type = m_PickupTypes[i]; //The current pickup type
+            int count = Random.Range(type.m_CountPerGame.min, type.m_CountPerGame.max);
+
+            for (int j = 0; j < count; j++)
+            {
+                bool foundvalidposition = false;
+
+                Vector3 position;
+                float distance = m_PickupSpawnDistance;
+
+                while (foundvalidposition == false)
+                {
+                    //Pick a random position in the level
+                    position = new Vector3(Random.Range(-distance, distance), 0f, Random.Range(-distance, distance));
+                    Collider[] tooclose = Physics.OverlapSphere(position, 1, m_prohibitedintersections);
+
+                    if (tooclose.Length > 0)
+                    {
+                        Debug.Log(tooclose); //Print the interfering objects to the Console
+                    }
+                    else
+                    {
+                        Debug.Log("Spawning " + type.m_name + " at " + position); //Log information to the console
+                        Instantiate(type.m_PickupPrefab, position, Quaternion.Euler(-90,0,0), m_PickupContainer); //Spawn a pickup at this position
+                        foundvalidposition = true; //End the while loop
+                    }
+
+                }
+            }
+        }
+    }
 
     private void SetCameraTargets()
     {
@@ -99,6 +144,7 @@ public class GameManager : MonoBehaviour
         // As soon as the round starts reset the tanks and make sure they can't move.
         ResetAllTanks();
         DisableTankControl();
+        SpawnPickups();
 
         // Snap the camera's zoom and position to something appropriate for the reset tanks.
         m_CameraControl.SetStartPositionAndSize();
