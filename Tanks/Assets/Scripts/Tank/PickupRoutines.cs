@@ -26,7 +26,8 @@ public class PickupRoutines : MonoBehaviour
         GetComponent<TankHealth>().MultiplyHealth(2f);      //Multiply the current health by 2
         m_sfxSource.Play();
         GetComponent<Rigidbody>().mass = 3;
-        GetComponent<TankShooting>().m_CurrentLaunchForce *= 3;
+        GetComponent<TankShooting>().m_MinLaunchForce *= 3;
+        GetComponent<TankShooting>().m_MaxLaunchForce *= 3;
 
         yield return new WaitForSeconds(0.3f);
         gameObject.transform.localScale += new Vector3(3, 3, 3)/3/* - new Vector3(1, 1, 1)*/;
@@ -40,7 +41,9 @@ public class PickupRoutines : MonoBehaviour
         GetComponent<TankHealth>().m_StartingHealth = 100f; //Double the starting health
         GetComponent<TankHealth>().DivideHealth(2f);        //Divide the current health by 2
         GetComponent<Rigidbody>().mass = 1;
-        //LerpReturnToOriginalSize();                         //Smootly Lerp to teh original Size
+        GetComponent<TankShooting>().m_MinLaunchForce = 15;
+        GetComponent<TankShooting>().m_MaxLaunchForce = 30;
+        //LerpReturnToOriginalSize();                       //Smootly Lerp to teh original Size
         transform.localScale = new Vector3(1, 1, 1);
 
         yield return null;
