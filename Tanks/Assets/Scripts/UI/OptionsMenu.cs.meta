@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f76a30dabea56b8448f344adfbd0177e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_OptionsMenu: {instanceID: 0}
+  - m_MainMenu: {instanceID: 0}
+  - mixer: {fileID: 24100000, guid: 2b4c8bedc69ed21428ecac16eec30fe6, type: 2}
+  - masterVolume: {instanceID: 0}
+  - sfxVolume: {instanceID: 0}
+  - musicVolume: {instanceID: 0}
+  - drivingVolume: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
