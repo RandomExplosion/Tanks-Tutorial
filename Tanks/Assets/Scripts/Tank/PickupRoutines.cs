@@ -8,26 +8,14 @@ public class PickupRoutines : MonoBehaviour
     public float m_shroomEffectLength = 10f;
     public AudioSource m_sfxSource;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public IEnumerator ShroomEffect()
     {
         GetComponent<TankHealth>().m_StartingHealth = 200f; //Double the starting health
         GetComponent<TankHealth>().MultiplyHealth(2f);      //Multiply the current health by 2
         m_sfxSource.Play();
         GetComponent<Rigidbody>().mass = 3;
-        GetComponent<TankShooting>().m_MinLaunchForce *= 3;
-        GetComponent<TankShooting>().m_MaxLaunchForce *= 3;
+        GetComponent<TankShooting>().m_MinLaunchForce *= 2;
+        GetComponent<TankShooting>().m_MaxLaunchForce *= 2;
         GetComponent<TankShooting>().m_AimSlider.maxValue = GetComponent<TankShooting>().m_MaxLaunchForce;
         GetComponent<TankShooting>().m_AimSlider.minValue = GetComponent<TankShooting>().m_MinLaunchForce;
 

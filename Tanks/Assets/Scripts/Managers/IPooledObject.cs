@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupUtility : MonoBehaviour
+namespace Pooling
 {
-    private void Start()
+    public interface IPooledObject
     {
-        
-    }
-
-    
+        void OnObjectSpawn();
+    } 
 }
