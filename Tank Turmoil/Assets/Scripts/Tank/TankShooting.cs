@@ -94,7 +94,7 @@ public class TankShooting : MonoBehaviour
         m_Fired = true;
 
         //Calculate the time when the cooldown will be completed
-        m_MinNextFireTime += m_FireCooldown;
+        m_MinNextFireTime = Time.time + m_FireCooldown;
 
         //Take an instance of the shell from the object pool and store a reference to it's rigidbody.
         Rigidbody shellInstance =
