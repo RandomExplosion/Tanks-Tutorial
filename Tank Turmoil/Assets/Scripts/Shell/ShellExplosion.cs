@@ -86,10 +86,10 @@ public class ShellExplosion : MonoBehaviour
         #endregion
 
         //Once the particles have finished, destroy the gameobject they are on.
-        ObjectPooler.Instance.StartCoroutine(ObjectPooler.Instance.ReturnToPoolDelay("shlexplosions", explosionObj, m_ExplosionParticles.main.duration));
+        ObjectPooler.Instance.StartCoroutine(ObjectPooler.Instance.ReturnToPoolDelay(explosionObj.GetComponent<IPooledObject>().m_poolName, explosionObj, m_ExplosionParticles.main.duration));
 
         //Destroy the shell.
-        ObjectPooler.Instance.ReturnToPool("shells", gameObject);
+        ObjectPooler.Instance.ReturnToPool(gameObject.GetComponent<IPooledObject>().m_poolName, gameObject);
     }
 
     private float CalculateDamage(Vector3 targetPosition)

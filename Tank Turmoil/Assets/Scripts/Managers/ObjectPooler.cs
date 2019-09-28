@@ -50,6 +50,15 @@ namespace Pooling
                     {
                         obj.transform.parent = pool.parent;     //Set the parent of the object to the pool parent 
                     }
+                    try
+                    {
+                        obj.GetComponent<IPooledObject>().m_poolName = pool.tag;
+                    }
+                    catch (System.Exception e)
+                    {
+
+                        Debug.LogError(e);
+                    }
                     objectPool.Enqueue(obj);                    //Add the object to the pool
                 }
 

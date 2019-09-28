@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Pooling
 {
-    public interface IPooledObject
+    public class IPooledObject : MonoBehaviour
     {
-        void OnObjectSpawn();
+        public string m_poolName;
     } 
 }

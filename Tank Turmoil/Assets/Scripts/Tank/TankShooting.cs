@@ -98,7 +98,7 @@ public class TankShooting : MonoBehaviour
 
         //Take an instance of the shell from the object pool and store a reference to it's rigidbody.
         Rigidbody shellInstance =
-            ObjectPooler.Instance.SpawnFromPool("shells", m_FireTransform.position, m_FireTransform.rotation).GetComponent<Rigidbody>();
+            ObjectPooler.Instance.SpawnFromPool("shellpool" + m_PlayerNumber, m_FireTransform.position, m_FireTransform.rotation).GetComponent<Rigidbody>();
 
         if (transform.localScale.x > 1f || transform.localScale.y > 1f || transform.localScale.z > 1f) //If the scale isn't 1, 1, 1
         {
