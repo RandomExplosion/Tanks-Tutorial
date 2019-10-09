@@ -2,24 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shroom : PickupBase
+public class Shroom : PickupBehaviorBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 
     public override void OnPickup(GameObject player)
     {
         Debug.Log("Shroom at " + transform.position + " Picked up");
-        player.GetComponent<PickupRoutines>().StartCoroutine("ShroomEffect");
+        player.GetComponent<PickupRoutines>().StartCoroutine("ShroomEffect"); //Call ShroomEffect on the tank
         Destroy(gameObject);
     }
 }

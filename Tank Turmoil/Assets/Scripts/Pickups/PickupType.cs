@@ -5,6 +5,11 @@ using UnityEngine;
 [System.Serializable] [CreateAssetMenu]
 public class PickupType : ScriptableObject
 {
+
+    /// <summary>
+    /// This class allows new pickup types to be created easily from within the editor
+    /// </summary>
+
     public string m_name;
     public Range m_CountPerGame;
     public GameObject m_PickupPrefab;

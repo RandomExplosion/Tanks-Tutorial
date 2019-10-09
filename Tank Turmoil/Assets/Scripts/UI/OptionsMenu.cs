@@ -22,18 +22,68 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
-        //Load The Volume Settings From PlayerPrefs (Registry)
-        masterVolume.value = PlayerPrefs.GetFloat("masterVol");
-        sfxVolume.value = PlayerPrefs.GetFloat("sfxVol");
-        musicVolume.value = PlayerPrefs.GetFloat("musicVol");
-        drivingVolume.value = PlayerPrefs.GetFloat("masterVol");
         
+
+        #region Volume Init
+
+        //MASTER VOLUME
+        if (PlayerPrefs.HasKey("masterVol"))
+        {
+            masterVolume.value = PlayerPrefs.GetFloat("masterVol"); //Load the data
+            mixer.SetFloat("masterVol", Mathf.Log10(PlayerPrefs.GetFloat("masterVol")) * 20);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("masterVol", masterVolume.value); //Default it to max
+            mixer.SetFloat("masterVol", Mathf.Log10(masterVolume.value) * 20);
+        }
+        
+        //MUSIC VOLUME
+        if (PlayerPrefs.HasKey("musicVol"))
+        {
+            musicVolume.value = PlayerPrefs.GetFloat("musicVol"); //Load the data
+            mixer.SetFloat("musicVol", Mathf.Log10(PlayerPrefs.GetFloat("musicVol")) * 20);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("musicVol", musicVolume.value); //Default it to max
+            mixer.SetFloat("musicVol", Mathf.Log10(musicVolume.value) * 20);
+        }
+
+        //SFX VOLUME
+        if (PlayerPrefs.HasKey("sfxVol"))
+        {
+            sfxVolume.value = PlayerPrefs.GetFloat("sfxVol"); //Load the data
+            mixer.SetFloat("sfxVol", Mathf.Log10(PlayerPrefs.GetFloat("sfxVol")) * 20);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("sfxVol", sfxVolume.value); //Default it to max
+            mixer.SetFloat("sfxVol", Mathf.Log10(sfxVolume.value) * 20);
+        }
+
+        //DRIVING VOLUME
+        if (PlayerPrefs.HasKey("drivingVol"))
+        {
+            drivingVolume.value = PlayerPrefs.GetFloat("drivingVol"); //Load the data
+            mixer.SetFloat("drivingVol", Mathf.Log10(PlayerPrefs.GetFloat("drivingVol")) * 20);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("drivingVol", drivingVolume.value); //Default it to max
+            mixer.SetFloat("drivingVol", Mathf.Log10(drivingVolume.value) * 20);
+        }
+
+        #endregion Volume Init
+
+
         //If there is data in the registry for this
         if (PlayerPrefs.HasKey("SpawnPickups"))
         {
             //Load the pickup toggle state from PlayerPrefs (Registry)
             pickupToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("SpawnPickups"));
         }
+        
         else //Default it to false and create a registry key
         {
             pickupToggle.isOn = false;
@@ -92,39 +142,39 @@ public class OptionsMenu : MonoBehaviour
         QualitySettings.SetQualityLevel(qualityDropdown.value);
     }
 
-    #region
-
     public void SetPickupSpawnState(bool newstate) //Toggle weather the game spawns magic mushrooms and other pickups
     {
         PlayerPrefs.SetInt("SpawnPickups", System.Convert.ToInt32(newstate));
         Debug.Log(System.Convert.ToInt32(newstate));
     }
 
-    public void SetVolumeMaster(float volume)
+    #region VolumeMethods
+
+    public void SetVolumeMaster(/*float value*/)
     {
-        mixer.SetFloat("masterVol", volume);
-        PlayerPrefs.SetFloat("masterVol", volume);
+        mixer.SetFloat("masterVol", Mathf.Log10(masterVolume.value) * 20);
+        PlayerPrefs.SetFloat("masterVol", masterVolume.value);
     }
 
-    public void SetVolumeSFX(float volume)
+    public void SetVolumeSFX(/*float value*/)
     {
-        mixer.SetFloat("sfxVol", volume);
-        PlayerPrefs.SetFloat("sfxVol", volume);
+        mixer.SetFloat("sfxVol", Mathf.Log10(sfxVolume.value) * 20);
+        PlayerPrefs.SetFloat("sfxVol", sfxVolume.value);
     }
 
-    public void SetVolumeMusic(float volume)
+    public void SetVolumeMusic(/*float value*/)
     {
-        mixer.SetFloat("musicVol", volume);
-        PlayerPrefs.SetFloat("musicVol", volume);
+        mixer.SetFloat("musicVol", Mathf.Log10(musicVolume.value) * 20);
+        PlayerPrefs.SetFloat("musicVol", musicVolume.value);
     }
 
-    public void SetVolumeDriving(float volume)
+    public void SetVolumeDriving(/*float value*/)
     {
-        mixer.SetFloat("drivingVol", volume);
-        PlayerPrefs.SetFloat("drivingVol", volume);
+        mixer.SetFloat("drivingVol", Mathf.Log10(drivingVolume.value) * 20);
+        PlayerPrefs.SetFloat("drivingVol", drivingVolume.value);
     }
 
-    #endregion VolumeMethods`
+    #endregion VolumeMethods
 
     public void Back()
     {

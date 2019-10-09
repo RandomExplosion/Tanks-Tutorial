@@ -13,18 +13,19 @@ public class PickupRoutines : MonoBehaviour
         GetComponent<TankHealth>().m_StartingHealth = 200f; //Double the starting health
         GetComponent<TankHealth>().MultiplyHealth(2f);      //Multiply the current health by 2
         m_sfxSource.Play();
-        GetComponent<Rigidbody>().mass = 3;
-        GetComponent<TankShooting>().m_MinLaunchForce *= 2;
-        GetComponent<TankShooting>().m_MaxLaunchForce *= 2;
+        GetComponent<Rigidbody>().mass = 2;
+        GetComponent<TankShooting>().m_MinLaunchForce *= 1.5f;
+        GetComponent<TankShooting>().m_MaxLaunchForce *= 1.5f;
         GetComponent<TankShooting>().m_AimSlider.maxValue = GetComponent<TankShooting>().m_MaxLaunchForce;
         GetComponent<TankShooting>().m_AimSlider.minValue = GetComponent<TankShooting>().m_MinLaunchForce;
 
         yield return new WaitForSeconds(0.3f);
-        gameObject.transform.localScale += new Vector3(3, 3, 3)/3/* - new Vector3(1, 1, 1)*/;
+        gameObject.transform.localScale += new Vector3(0.333f, 0.333f, 0.333f) /* - new Vector3(1, 1, 1)*/;
         yield return new WaitForSeconds(0.3f);
-        gameObject.transform.localScale += new Vector3(3, 3, 3) / 3/* - new Vector3(1, 1, 1)*/;
+        gameObject.transform.localScale += new Vector3(0.333f, 0.333f, 0.333f)/* - new Vector3(1, 1, 1)*/;
         yield return new WaitForSeconds(0.3f);
-        gameObject.transform.localScale += new Vector3(3, 3, 3) / 3/* - new Vector3(1, 1, 1)*/;
+        gameObject.transform.localScale += new Vector3(0.333f, 0.333f, 0.333f)/* - new Vector3(1, 1, 1)*/;
+        gameObject.transform.localScale = new Vector3(2f, 2f, 2f); //Make it exactly two
         //Debug.Log("time starts now");
         yield return new WaitForSeconds(m_shroomEffectLength);
         //Debug.Log("time's up");
@@ -35,26 +36,11 @@ public class PickupRoutines : MonoBehaviour
         GetComponent<TankShooting>().m_MaxLaunchForce = 30;
         GetComponent<TankShooting>().m_AimSlider.maxValue = GetComponent<TankShooting>().m_MaxLaunchForce;
         GetComponent<TankShooting>().m_AimSlider.minValue = GetComponent<TankShooting>().m_MinLaunchForce;
-        //LerpReturnToOriginalSize();                       //Smootly Lerp to teh original Size
-        transform.localScale = new Vector3(1, 1, 1);
+
+        transform.localScale = new Vector3(1, 1, 1); //Return to the original size
+
 
         yield return null;
     }
-
-    IEnumerator LerpReturnToOriginalSize()
-    {
-        Debug.Log("Returning to original size");
-        float progress = 0;
-
-        while (progress <= 100)
-        {
-            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1f, 1f, 1f), progress);
-            progress += Time.deltaTime * Time.timeScale;
-            yield return null;
-        }
-        transform.localScale = new Vector3(1f, 1f, 1f);
-        yield return null;
-    }
-
 
 }

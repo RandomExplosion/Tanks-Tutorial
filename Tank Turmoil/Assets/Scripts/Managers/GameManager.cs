@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < m_PickupTypes.Length; i++)
         {
             PickupType type = m_PickupTypes[i]; //The current pickup type
-            int count = Random.Range(type.m_CountPerGame.min, type.m_CountPerGame.max);
+            int count = Random.Range(type.m_CountPerGame.max, type.m_CountPerGame.min);
 
             for (int j = 0; j < count; j++)
             {
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
                 {
                     //Pick a random position in the level
                     position = new Vector3(Random.Range(-distance, distance), 0f, Random.Range(-distance, distance));
-                    Collider[] tooclose = Physics.OverlapSphere(position, 1, m_prohibitedintersections);
+                    Collider[] tooclose = Physics.OverlapSphere(position, 1f, m_prohibitedintersections);
 
                     if (tooclose.Length > 0)
                     {
@@ -309,5 +309,10 @@ public class GameManager : MonoBehaviour
         {
             m_Tanks[i].DisableControl();
         }
+    }
+
+    public void takefloat(float value)
+    {
+        Debug.Log(value);
     }
 } 
