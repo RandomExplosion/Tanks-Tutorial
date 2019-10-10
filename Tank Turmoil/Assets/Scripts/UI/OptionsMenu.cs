@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class OptionsMenu : MonoBehaviour
@@ -22,7 +23,6 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
-        
 
         #region Volume Init
 
@@ -75,7 +75,6 @@ public class OptionsMenu : MonoBehaviour
         }
 
         #endregion Volume Init
-
 
         //If there is data in the registry for this
         if (PlayerPrefs.HasKey("SpawnPickups"))
@@ -132,12 +131,12 @@ public class OptionsMenu : MonoBehaviour
         #endregion
     }
 
-    public void SetResolution()
+    public void SetResolution() //Set the resolution to what is specified in the Dropdown
     {
         Screen.SetResolution(resolutions[resolutionDropdown.value].width, resolutions[resolutionDropdown.value].height, true);
     }
 
-    public void SetGraphicsQuality()
+    public void SetGraphicsQuality() //Set the graphics quality to what is specified in the Dropdown
     {
         QualitySettings.SetQualityLevel(qualityDropdown.value);
     }
@@ -180,6 +179,14 @@ public class OptionsMenu : MonoBehaviour
     {
         m_OptionsMenu.SetActive(false);  //Turn Off the Options Menu
         m_MainMenu.SetActive(true);    //Turn On The Main Menu
+    }
+
+    //Reset all data to defaults
+    public void ResetAllData()
+    {
+        PlayerPrefs.DeleteAll();                                            //Wipe playerprefs
+        QualitySettings.SetQualityLevel(6);                                 //Set Graohics Quality to Max
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);   //Reload the scene so start is called again
     }
 
 }
